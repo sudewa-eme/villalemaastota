@@ -1,0 +1,147 @@
+.section {
+  padding-block: var(--section-y);
+  background: var(--c-ivory);
+}
+
+.head {
+  display: grid;
+  justify-items: center;
+  gap: clamp(1.25rem, 2.5vw, 2rem);
+  text-align: center;
+}
+
+.body {
+  max-width: 36rem;
+  color: #3c3c3a;
+}
+
+.panels {
+  display: grid;
+  grid-template-columns: 1fr 1.9fr 1fr;
+  gap: clamp(0.75rem, 1.4vw, 1.25rem);
+  margin-top: clamp(3.5rem, 7vw, 6rem);
+}
+
+.panel {
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  align-content: stretch;
+  gap: 0.9rem;
+  padding: clamp(1.5rem, 2.6vw, 2.5rem);
+  background: var(--c-white);
+  border: 1px solid rgba(42, 42, 42, 0.08);
+  border-radius: var(--radius-media);
+  margin-block: clamp(1.5rem, 4vw, 3.5rem);
+}
+
+.panelIndex {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--c-olive-deep);
+}
+
+.textPanel .panelText {
+  align-self: end;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--c-line);
+  margin-top: 1rem;
+  padding-top: 1rem;
+}
+
+.panelTitle {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 1.2rem + 0.9vw, 2.1rem);
+  line-height: 1.1;
+}
+
+.panelText {
+  font-size: var(--fs-small);
+  line-height: 1.65;
+  color: var(--c-stone);
+}
+
+.imagePanel {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  min-height: clamp(460px, 44vw, 680px);
+  padding: clamp(1rem, 2.5vw, 2.25rem);
+  border-radius: var(--radius-media);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.imageMedia {
+  position: absolute !important;
+  inset: 0;
+  z-index: -1;
+}
+
+.overlay {
+  display: grid;
+  gap: 0.6rem;
+  width: min(100%, 26rem);
+  padding: clamp(1.25rem, 2.2vw, 1.85rem);
+  background: rgba(243, 239, 230, 0.96);
+  border-radius: 4px;
+}
+
+.overlayMark {
+  width: 7px;
+  height: 7px;
+  margin-bottom: 0.3rem;
+  background: var(--c-olive);
+  transform: rotate(45deg);
+}
+
+.overlay .panelText {
+  color: #4a4a48;
+}
+
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem 3rem;
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+}
+
+.hours {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.25rem;
+  color: var(--c-stone);
+}
+
+@media (max-width: 1023px) {
+  .panels {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .imagePanel {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
+  .panel {
+    margin-block: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .panels {
+    grid-template-columns: 1fr;
+  }
+
+  .imagePanel {
+    min-height: 480px;
+  }
+
+  .panel {
+    gap: 1rem;
+  }
+}

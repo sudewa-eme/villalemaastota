@@ -1,0 +1,143 @@
+.section {
+  padding-block: var(--section-y);
+  background: var(--c-white);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(2.5rem, 6vw, 7rem);
+}
+
+.head {
+  display: grid;
+  align-content: start;
+  gap: 1.75rem;
+}
+
+@media (min-width: 1024px) {
+  .head {
+    position: sticky;
+    top: calc(var(--header-h) + 2.5rem);
+    align-self: start;
+  }
+}
+
+.contact {
+  max-width: 22rem;
+  font-size: var(--fs-small);
+  color: var(--c-stone);
+}
+
+.contact a {
+  color: var(--c-charcoal);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--c-line-strong);
+}
+
+.list {
+  border-top: 1px solid var(--c-line);
+}
+
+.item {
+  border-bottom: 1px solid var(--c-line);
+}
+
+.q button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  width: 100%;
+  min-height: 64px;
+  padding: 1.5rem 0;
+  text-align: left;
+  font-family: var(--font-serif);
+  font-size: clamp(1.3rem, 1.1rem + 0.7vw, 1.75rem);
+  font-weight: 400;
+  line-height: 1.25;
+  transition: color var(--dur-2) var(--ease);
+}
+
+.q button:hover {
+  color: var(--c-olive-deep);
+}
+
+.icon {
+  position: relative;
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--c-line-strong);
+  border-radius: 50%;
+  transition:
+    background-color var(--dur-2) var(--ease),
+    border-color var(--dur-2) var(--ease);
+}
+
+.icon::before,
+.icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px;
+  height: 1px;
+  background: currentColor;
+  transform: translate(-50%, -50%);
+  transition: transform var(--dur-2) var(--ease);
+}
+
+.icon::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.isOpen .icon {
+  background: var(--c-charcoal);
+  border-color: var(--c-charcoal);
+  color: var(--c-ivory);
+}
+
+.isOpen .icon::after {
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+.a {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--dur-2) var(--ease);
+}
+
+.isOpen .a {
+  grid-template-rows: 1fr;
+}
+
+.aInner {
+  overflow: hidden;
+}
+
+.aInner p {
+  max-width: 38rem;
+  padding: 0 3.5rem 1.75rem 0;
+  color: #4a4a48;
+  line-height: 1.75;
+  opacity: 0;
+  transition: opacity var(--dur-2) var(--ease);
+}
+
+.isOpen .aInner p {
+  opacity: 1;
+}
+
+@media (max-width: 1023px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .aInner p {
+    padding-right: 0;
+  }
+}

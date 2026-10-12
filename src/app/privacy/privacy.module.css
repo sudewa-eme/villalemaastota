@@ -1,0 +1,26 @@
+.page {
+  min-height: 100svh;
+  padding: clamp(3rem, 10vw, 8rem) var(--gutter);
+  background: var(--c-ivory);
+}
+
+.inner {
+  display: grid;
+  gap: 2rem;
+  max-width: 44rem;
+  margin-inline: auto;
+}
+
+.home {
+  justify-self: start;
+}
+
+.logo {
+  width: 64px;
+  height: 64px;
+}
+
+.inner a:not(:global(.text-link)):not(.home) {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
