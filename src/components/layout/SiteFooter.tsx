@@ -8,106 +8,106 @@ export function SiteFooter() {
   const year = new Date().getFullYear();
   const credits = stockCredits();
   return (
-    <footer id="contact" className={`${styles.footer} on-dark`} aria-labelledby="footer-title">
-      <div className={`container ${styles.top}`}>
-        <h2 id="footer-title" className={styles.statement}>
-          Come for the quiet. <em>Stay for the mist.</em>
-        </h2>
-        <a href="#book" className="btn btn--ivory">
-          Book your stay
-        </a>
-      </div>
+    <footer id="contact" className={styles.footer} aria-labelledby="footer-title">
+      <h2 id="footer-title" className="visually-hidden">
+        Contact and information
+      </h2>
 
-      <div className={`container ${styles.main}`}>
-        <nav className={styles.col} aria-label="Footer">
-          <p className="eyebrow">
-            <span className="eyebrow__mark" aria-hidden="true" />
-            Explore
-            <span className="eyebrow__mark" aria-hidden="true" />
-          </p>
-          <ul className={styles.links}>
-            {navigation.map((item) => (
-              <li key={item.href}>
-                <a href={item.href}>{item.label}</a>
-              </li>
+      <div className={`container ${styles.columns}`}>
+        <div className={styles.col}>
+          <Logo variant="emblem" className={styles.emblem} />
+          <address className={styles.list}>
+            {site.location.address.map((line, i) => (
+              <span key={line} className={i === 0 ? styles.first : undefined}>
+                {line}
+              </span>
             ))}
-            <li>
-              <a href={site.links.offers} target="_blank" rel="noopener noreferrer">
-                Offers<span className="visually-hidden"> (opens in a new tab)</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-
-        <div className={styles.brand}>
-          <Logo className={styles.logo} />
-          <p className={styles.tagline}>
-            A private highland villa on a thirty-acre estate in Koslanda, Sri Lanka.
-          </p>
-        </div>
-
-        <div className={`${styles.col} ${styles.colEnd}`}>
-          <p className="eyebrow">
-            <span className="eyebrow__mark" aria-hidden="true" />
-            Contact
-            <span className="eyebrow__mark" aria-hidden="true" />
-          </p>
-          <address className={styles.address}>
-            <a href={site.contact.phoneHref}>{site.contact.phoneDisplay}</a>
-            <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
-            <span className={styles.postal}>
-              {site.location.address.map((line) => (
-                <span key={line} className="line">
-                  {line}
-                </span>
-              ))}
-            </span>
-            <a href={site.location.mapUrl} target="_blank" rel="noopener noreferrer" className={styles.map}>
+            <a href={site.location.mapUrl} target="_blank" rel="noopener noreferrer" className={styles.link}>
               Open in Maps<span className="visually-hidden"> (opens in a new tab)</span>
             </a>
           </address>
         </div>
-      </div>
 
-      {site.social.length > 0 && (
-        <ul className={`container ${styles.social}`} aria-label="Social media">
-          {site.social.map((s) => (
-            <li key={s.href}>
-              <a href={s.href} target="_blank" rel="noopener noreferrer">
-                {s.label}
+        <nav className={styles.col} aria-label="Footer">
+          <ul className={styles.list}>
+            <li className={styles.first}>The villa</li>
+            {navigation.map((item) => (
+              <li key={item.href}>
+                <a href={item.href} className={styles.link}>
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div className={styles.col}>
+          <ul className={styles.list}>
+            <li className={styles.first}>Reservations</li>
+            <li>
+              <a href={site.contact.phoneHref} className={styles.link}>
+                {site.contact.phoneDisplay}
               </a>
             </li>
-          ))}
-        </ul>
-      )}
+            <li>
+              <a href={`mailto:${site.contact.email}`} className={styles.link}>
+                {site.contact.email}
+              </a>
+            </li>
+            <li>
+              <a href={site.links.offers} target="_blank" rel="noopener noreferrer" className={styles.link}>
+                Current offers<span className="visually-hidden"> (opens in a new tab)</span>
+              </a>
+            </li>
+          </ul>
+        </div>
 
-      {credits.length > 0 && (
-        <p className={`container ${styles.credits}`}>
-          Illustrative stock photography shown until the villa&apos;s own photographs are published:{" "}
-          {credits.map((c, i) => (
-            <span key={c.page}>
-              <a href={c.page} target="_blank" rel="noopener noreferrer">
-                {c.photographer ?? c.caption}
-              </a>{" "}
-              / {c.source}
-              {i < credits.length - 1 ? ", " : "."}
-            </span>
-          ))}
-        </p>
-      )}
+        <div className={styles.col}>
+          <ul className={styles.list}>
+            <li className={styles.first}>Your stay</li>
+            <li>Check-in from {site.policies.checkIn}</li>
+            <li>Check-out by {site.policies.checkOut}</li>
+            <li>Dining 6:30 am to 10:30 pm</li>
+            <li>
+              <a href="#book" className={`action action--paper ${styles.book}`}>
+                Book your stay
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
 
       <div className={`container ${styles.bottom}`}>
-        <p>
-          © {year} {site.name} {site.operator}. All rights reserved.
-        </p>
-        <ul className={styles.legal}>
-          <li>
+        <svg className={styles.wordmark} viewBox="0 0 1000 178" role="img" aria-label={site.name}>
+          <text x="0" y="146" textLength="1000" lengthAdjust="spacing">
+            Lé Maas Tota
+          </text>
+        </svg>
+
+        {credits.length > 0 && (
+          <p className={styles.credits}>
+            Illustrative photography until the villa&apos;s own is published:{" "}
+            {credits.map((c, i) => (
+              <span key={c.page}>
+                <a href={c.page} target="_blank" rel="noopener noreferrer">
+                  {c.photographer ?? c.caption}
+                </a>{" "}
+                / {c.source}
+                {i < credits.length - 1 ? ", " : "."}
+              </span>
+            ))}
+          </p>
+        )}
+
+        <div className={styles.legal}>
+          <p>
+            © {year} {site.name} {site.operator}
+          </p>
+          <p className={styles.legalLinks}>
             <Link href="/privacy">Privacy</Link>
-          </li>
-          <li>
-            <a href="#top">Back to top ↑</a>
-          </li>
-        </ul>
+            <a href="#top">Back to top</a>
+          </p>
+        </div>
       </div>
     </footer>
   );

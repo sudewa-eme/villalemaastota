@@ -1,228 +1,388 @@
 .section {
-  position: relative;
-  color: var(--c-ivory);
-  isolation: isolate;
-  overflow: hidden;
+  background: var(--c-sage);
+  color: var(--c-charcoal);
+  padding-bottom: clamp(6rem, 10vw, 9rem);
 }
 
-.bg {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: #3f4a38;
-}
-
-.scrim {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(to bottom, rgba(22, 26, 20, 0.5), rgba(22, 26, 20, 0.2) 35%, rgba(22, 26, 20, 0.25) 65%, rgba(22, 26, 20, 0.7));
-}
-
-.inner {
-  position: relative;
+.grid {
   display: grid;
-  justify-items: center;
-  gap: clamp(1.5rem, 3vw, 2.5rem);
-  padding-block: clamp(5rem, 10vw, 8.5rem) clamp(3.5rem, 6vw, 5rem);
-  text-align: center;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: clamp(1rem, 2vw, 2rem);
+}
+
+/* The statement hangs from the axis at column 5, centred in its own ground. */
+.head {
+  grid-column: 5 / -1;
+  grid-row: 1;
+  display: grid;
+  align-content: center;
+  gap: 1.5rem;
+  min-height: 70svh;
+  padding-block: 6rem 4rem;
 }
 
 .title {
+  max-width: 16ch;
   font-family: var(--font-serif);
   font-weight: 300;
-  font-size: clamp(3rem, 1.2rem + 7vw, 8.75rem);
-  line-height: 0.95;
-  letter-spacing: -0.025em;
-  text-wrap: balance;
-}
-
-.title em {
-  font-weight: 300;
-}
-
-.stage {
-  position: relative;
-  display: grid;
-  grid-template-columns: auto minmax(0, 400px) auto;
-  align-items: center;
-  gap: clamp(1rem, 4vw, 3.5rem);
-  margin-top: clamp(0rem, 1vw, 1rem);
-}
-
-.cards {
-  display: grid;
-}
-
-.card {
-  grid-area: 1 / 1;
-  display: grid;
-  padding: 12px;
-  background: var(--c-ivory);
-  color: var(--c-charcoal);
-  border-radius: var(--radius-media);
-  box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.55);
-  text-align: center;
-  opacity: 0;
-  transform: translateY(18px) scale(0.98);
-  transition:
-    opacity var(--dur-3) var(--ease),
-    transform var(--dur-3) var(--ease-out);
-  pointer-events: none;
-}
-
-.active {
-  opacity: 1;
-  transform: none;
-  pointer-events: auto;
-}
-
-.cardMedia {
-  position: relative;
-  aspect-ratio: 4 / 3.2;
-  overflow: hidden;
-  border-radius: 3px;
-  background: var(--c-sage);
-}
-
-.badge {
-  position: absolute;
-  left: 10px;
-  right: auto;
-  bottom: 10px;
-  padding: 0.25rem 0.55rem;
-  background: rgba(243, 239, 230, 0.9);
-  font-size: 0.6rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--c-stone);
-  border-radius: 2px;
-}
-
-.cardBody {
-  display: grid;
-  gap: 0.45rem;
-  padding: 1.35rem 0.75rem 1rem;
-}
-
-.kicker {
-  font-size: 0.62rem;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--c-olive-deep);
-}
-
-.cardTitle {
-  font-family: var(--font-serif);
-  font-weight: 400;
-  font-size: 1.85rem;
-  line-height: 1.1;
-}
-
-.cardText {
-  font-size: 0.86rem;
-  line-height: 1.6;
-  color: var(--c-stone);
-}
-
-.nav {
-  display: grid;
-  place-items: center;
-  width: 56px;
-  height: 56px;
-  border: 1px solid rgba(243, 239, 230, 0.6);
-  border-radius: 50%;
-  color: var(--c-ivory);
-  transition:
-    background-color var(--dur-2) var(--ease),
-    color var(--dur-2) var(--ease);
-}
-
-.nav:hover {
-  background: var(--c-ivory);
-  color: var(--c-charcoal);
-}
-
-.dots {
-  position: absolute;
-  right: var(--gutter);
-  top: 50%;
-  display: grid;
-  gap: 0.2rem;
-  transform: translateY(-50%);
-}
-
-.dots button {
-  display: grid;
-  place-items: center;
-  width: 32px;
-  height: 32px;
-}
-
-.dots button span {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: rgba(243, 239, 230, 0.45);
-  transition:
-    transform var(--dur-2) var(--ease),
-    background-color var(--dur-2) var(--ease);
-}
-
-.dots button:hover span {
-  background: var(--c-ivory);
-}
-
-.dotActive span {
-  background: var(--c-ivory) !important;
-  transform: scale(1.6);
-}
-
-.foot {
-  display: grid;
-  justify-items: center;
-  gap: 1.5rem;
-  max-width: 38rem;
-  margin-top: clamp(1rem, 2vw, 1.5rem);
+  font-size: var(--t-display);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
 }
 
 .body {
-  font-size: 0.95rem;
-  line-height: 1.7;
-  color: rgba(243, 239, 230, 0.92);
+  max-width: 34rem;
+  font-size: var(--t-lead);
+  line-height: 1.5;
 }
 
-@media (max-width: 767px) {
-  .stage {
-    grid-template-columns: 1fr 1fr;
-    width: 100%;
-    max-width: 420px;
-  }
+/* The road: columns 1–4, held while the rows pass. */
+.roadCol {
+  grid-column: 1 / span 3;
+  grid-row: 1 / span 3;
+}
 
-  .cards {
+.road {
+  position: sticky;
+  top: calc(var(--header-h) + 2rem);
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 1.75rem;
+  height: calc(100svh - var(--header-h) - 4rem);
+  max-height: 760px;
+  padding-top: 6rem;
+}
+
+.roadNow {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: baseline;
+  column-gap: 0.35rem;
+}
+
+.roadNowKm {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: var(--t-display);
+  line-height: 0.9;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.roadNowUnit {
+  font-size: var(--t-lead);
+}
+
+.roadNowName {
+  grid-column: 1 / -1;
+  margin-top: 0.4rem;
+  font-size: var(--t-body);
+  font-weight: 500;
+}
+
+.line {
+  position: relative;
+  margin-left: 6px;
+  min-height: 0;
+}
+
+/* The road itself: a filled band, not a rule. */
+.line::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 6px;
+  border-radius: 3px;
+  background: rgba(42, 42, 42, 0.14);
+}
+
+.lineFill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 100%;
+  border-radius: 3px;
+  background: var(--c-olive-deep);
+  transform-origin: top;
+  transform: scaleY(var(--at));
+  transition: transform 700ms var(--ease-out);
+}
+
+.marker {
+  position: absolute;
+  top: 0;
+  left: 3px;
+  box-sizing: content-box;
+  width: 16px;
+  height: 16px;
+  margin: -13px 0 0 -13px;
+  border: 5px solid var(--c-sage);
+  border-radius: 50%;
+  background: var(--c-charcoal);
+  transform: translateY(calc(var(--at) * (100cqh)));
+  transition: transform 700ms var(--ease-out);
+}
+
+.line {
+  container-type: size;
+}
+
+.stops {
+  position: absolute;
+  inset: 0;
+}
+
+.stops li {
+  position: absolute;
+  top: calc(var(--p) * 100%);
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.stops a,
+.end > span {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  align-items: center;
+  column-gap: 0.6rem;
+  min-height: 24px;
+  margin-left: -11px;
+  padding-right: 0.5rem;
+  border-radius: var(--radius);
+  white-space: nowrap;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  margin-left: 5px;
+  border-radius: 50%;
+  border: 3px solid var(--c-charcoal);
+  background: var(--c-sage);
+  transition: transform var(--dur-2) var(--ease-out);
+}
+
+.stopName {
+  font-size: 1rem;
+  line-height: 1.2;
+  transition: color var(--dur-2) var(--ease);
+}
+
+.stopKm {
+  font-size: var(--t-small);
+  color: #4a4b45;
+}
+
+.stops a:hover .dot {
+  transform: scale(1.35);
+}
+
+.stops a:hover .stopName {
+  color: var(--c-olive-deep);
+}
+
+.stopActive .stopName {
+  font-weight: 600;
+}
+
+.end {
+  color: #4a4b45;
+}
+
+/* Rows on the same axis as the statement, photographs at the right margin. */
+.rows {
+  grid-column: 5 / -1;
+  grid-row: 2;
+  display: grid;
+  gap: clamp(5rem, 8vw, 7.5rem);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: clamp(1.5rem, 4vw, 4rem);
+  scroll-margin-block: 30vh;
+}
+
+.rowText {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.rowKm {
+  margin-top: -0.25rem;
+  font-size: var(--t-body);
+  color: #3f403a;
+}
+
+.rowTitle {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: var(--t-head);
+  line-height: 1.05;
+}
+
+.rowBody {
+  max-width: 34ch;
+  font-size: var(--t-body);
+  line-height: 1.6;
+}
+
+.rowFigure {
+  margin: 0;
+}
+
+.shape0 .rowPhoto {
+  width: 240px;
+  aspect-ratio: 4 / 5;
+}
+
+.shape1 .rowPhoto {
+  width: 320px;
+  aspect-ratio: 3 / 2;
+}
+
+.shape2 .rowPhoto {
+  width: 200px;
+  aspect-ratio: 1;
+}
+
+.foot {
+  grid-column: 5 / -1;
+  grid-row: 3;
+  margin-top: clamp(4rem, 7vw, 6rem);
+}
+
+/* Tablet & phone: the road becomes a strip held under the header. */
+@media (max-width: 1023px) {
+  .head {
     grid-column: 1 / -1;
-    grid-row: 1;
+    min-height: 50svh;
+    padding-block: 5rem 2rem;
   }
 
-  .prev {
-    justify-self: end;
+  .roadCol {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    position: sticky;
+    top: var(--header-h);
+    z-index: 2;
+    margin-inline: calc(var(--gutter) * -1);
+    padding: 0.75rem var(--gutter) 1rem;
+    background: var(--c-sage);
   }
 
-  .next {
-    justify-self: start;
-  }
-
-  .nav {
-    width: 50px;
-    height: 50px;
-  }
-
-  .dots {
+  .road {
     position: static;
-    display: flex;
-    transform: none;
-    margin-top: -0.5rem;
+    height: auto;
+    max-height: none;
+    padding-top: 0;
+    gap: 0.75rem;
+  }
+
+  .roadNow {
+    grid-template-columns: auto auto 1fr;
+    align-items: baseline;
+  }
+
+  .roadNowKm {
+    font-size: 2rem;
+  }
+
+  .roadNowName {
+    grid-column: 3;
+    margin: 0 0 0 0.75rem;
+  }
+
+  .line {
+    container-type: inline-size;
+    height: 44px;
+    margin: 0 11px;
+  }
+
+  .line::before,
+  .lineFill {
+    top: 19px;
+    bottom: auto;
+    width: 100%;
+    height: 6px;
+  }
+
+  .lineFill {
+    transform-origin: left;
+    transform: scaleX(var(--at));
+  }
+
+  .marker {
+    top: 22px;
+    left: 0;
+    margin: -13px 0 0 -13px;
+    transform: translateX(calc(var(--at) * 100cqw));
+  }
+
+  .stops li {
+    top: 0;
+    left: calc(var(--p) * 100%);
+    transform: translateX(-50%);
+  }
+
+  .stops a,
+  .end > span {
+    display: grid;
+    grid-template-columns: 1fr;
+    column-gap: 0;
+    place-items: center;
+    width: 44px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .dot {
+    margin: 0;
+  }
+
+  .stopName,
+  .stopKm {
+    position: absolute;
+    width: 1px;
+    height: 1px; /* taste-skill-ignore: visually-hidden clip, not a rule */
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  .rows {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    margin-top: 3rem;
+    gap: 4rem;
+  }
+
+  .row {
+    grid-template-columns: 1fr;
+    scroll-margin-top: calc(var(--header-h) + 8rem);
+  }
+
+  .shape0 .rowPhoto,
+  .shape1 .rowPhoto,
+  .shape2 .rowPhoto {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+  }
+
+  .shape1 .rowFigure {
+    width: 70%;
+    margin-left: auto;
+  }
+
+  .shape2 .rowFigure {
+    width: 55%;
+  }
+
+  .foot {
+    grid-column: 1 / -1;
+    grid-row: 4;
   }
 }

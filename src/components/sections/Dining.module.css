@@ -1,147 +1,239 @@
-.section {
-  padding-block: var(--section-y);
-  background: var(--c-ivory);
+/* Phones and reduced motion: a plain stack. */
+.wrap {
+  position: relative;
+  background: var(--c-charcoal);
+  color: var(--c-ivory);
+}
+
+.stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-block: clamp(5rem, 14vw, 7rem) 4rem;
+  isolation: isolate;
+}
+
+.photo {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  max-height: 80svh;
+  width: 100%;
+  overflow: hidden;
+  filter: brightness(0.62);
+  will-change: transform;
+}
+
+.stageCredit {
+  top: 12px;
+  bottom: auto !important;
 }
 
 .head {
+  position: relative;
+  order: -1;
   display: grid;
-  justify-items: center;
-  gap: clamp(1.25rem, 2.5vw, 2rem);
-  text-align: center;
+  gap: 1rem;
+  padding-bottom: 2.5rem;
+}
+
+.title {
+  max-width: 14ch;
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: var(--t-display);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  color: var(--c-ivory);
 }
 
 .body {
-  max-width: 36rem;
-  color: #3c3c3a;
+  max-width: 30rem;
+  font-size: var(--t-body);
+  line-height: 1.6;
 }
 
-.panels {
+.track {
   display: grid;
-  grid-template-columns: 1fr 1.9fr 1fr;
-  gap: clamp(0.75rem, 1.4vw, 1.25rem);
-  margin-top: clamp(3.5rem, 7vw, 6rem);
+  gap: 24px;
+  margin-top: 24px;
+  padding-inline: var(--gutter);
+}
+
+.card {
+  display: grid;
+  grid-template-rows: auto auto;
+  color: var(--c-charcoal);
+}
+
+.cardPhoto {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--c-sage);
+}
+
+.cardPhoto img {
+  transition: transform var(--dur-4) var(--ease-out);
+}
+
+.card:hover .cardPhoto img {
+  transform: scale(1.04);
 }
 
 .panel {
   display: grid;
-  grid-template-rows: auto auto 1fr;
-  align-content: stretch;
-  gap: 0.9rem;
-  padding: clamp(1.5rem, 2.6vw, 2.5rem);
-  background: var(--c-white);
-  border: 1px solid rgba(42, 42, 42, 0.08);
-  border-radius: var(--radius-media);
-  margin-block: clamp(1.5rem, 4vw, 3.5rem);
+  grid-template-columns: 1fr;
+  align-content: end;
+  gap: 0.5rem;
+  min-height: 140px;
+  padding: 1.25rem 1.25rem 1.5rem;
+  background: var(--tone);
 }
 
-.panelIndex {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 1rem;
-  color: var(--c-olive-deep);
-}
-
-.textPanel .panelText {
-  align-self: end;
-  padding-top: 2.5rem;
-  border-top: 1px solid var(--c-line);
-  margin-top: 1rem;
-  padding-top: 1rem;
-}
-
-.panelTitle {
+.cardName {
   font-family: var(--font-serif);
   font-weight: 400;
-  font-size: clamp(1.5rem, 1.2rem + 0.9vw, 2.1rem);
-  line-height: 1.1;
+  font-size: var(--t-head);
+  line-height: 1.05;
 }
 
-.panelText {
-  font-size: var(--fs-small);
-  line-height: 1.65;
-  color: var(--c-stone);
+.cardText {
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
-.imagePanel {
-  position: relative;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  min-height: clamp(460px, 44vw, 680px);
-  padding: clamp(1rem, 2.5vw, 2.25rem);
-  border-radius: var(--radius-media);
-  overflow: hidden;
-  isolation: isolate;
-}
-
-.imageMedia {
-  position: absolute !important;
-  inset: 0;
-  z-index: -1;
-}
-
-.overlay {
-  display: grid;
-  gap: 0.6rem;
-  width: min(100%, 26rem);
-  padding: clamp(1.25rem, 2.2vw, 1.85rem);
-  background: rgba(243, 239, 230, 0.96);
-  border-radius: 4px;
-}
-
-.overlayMark {
-  width: 7px;
-  height: 7px;
-  margin-bottom: 0.3rem;
-  background: var(--c-olive);
-  transform: rotate(45deg);
-}
-
-.overlay .panelText {
-  color: #4a4a48;
-}
-
-.foot {
+.controls {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
-  gap: 1.5rem 3rem;
-  margin-top: clamp(2.5rem, 5vw, 4rem);
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2rem;
 }
 
-.hours {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 1.25rem;
-  color: var(--c-stone);
+.buttons {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
 }
 
-@media (max-width: 1023px) {
-  .panels {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .imagePanel {
-    grid-column: 1 / -1;
-    grid-row: 1;
-  }
-
-  .panel {
-    margin-block: 0;
-  }
+.count {
+  margin-right: 0.75rem;
+  font-size: var(--t-small);
 }
 
-@media (max-width: 600px) {
-  .panels {
-    grid-template-columns: 1fr;
-  }
+.buttons button {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(243, 239, 230, 0.14);
+  color: var(--c-ivory);
+  transition:
+    background-color var(--dur-2) var(--ease),
+    color var(--dur-2) var(--ease),
+    transform var(--dur-1) var(--ease);
+}
 
-  .imagePanel {
-    min-height: 480px;
-  }
+.buttons button:hover:not(:disabled) {
+  background: var(--c-ivory);
+  color: var(--c-charcoal);
+}
 
-  .panel {
-    gap: 1rem;
-  }
+.buttons button:active:not(:disabled) {
+  transform: scale(0.94);
+}
+
+.buttons button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.wrap:not(.isPinned) .buttons {
+  display: none;
+}
+
+/* Desktop with motion: a held stage, cards crossing it. */
+.isPinned {
+  height: 240svh;
+}
+
+.isPinned .stage {
+  display: block;
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  padding: 0;
+  overflow: hidden;
+}
+
+.isPinned .photo {
+  position: absolute;
+  inset: 0;
+  aspect-ratio: auto;
+  max-height: none;
+  filter: brightness(0.58);
+}
+
+.isPinned .stageCredit {
+  top: auto;
+  bottom: 12px !important;
+}
+
+.isPinned .head {
+  position: absolute;
+  inset: calc(var(--header-h) + 3rem) 0 auto 0;
+  margin: 0 auto;
+  padding-bottom: 0;
+  will-change: transform, opacity;
+}
+
+.isPinned .head .body {
+  max-width: 26rem;
+}
+
+.isPinned .track {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  display: flex;
+  gap: 40px;
+  padding: 0;
+  margin: calc(min(560px, 62svh) / -2) 0 0;
+  will-change: transform;
+}
+
+.isPinned .card {
+  flex: none;
+  width: clamp(460px, 50vw, 720px);
+  height: min(560px, 62svh);
+  grid-template-rows: 68% 32%;
+  transition: transform var(--dur-3) var(--ease-out);
+}
+
+.isPinned .cardActive {
+  transform: translateY(-8px);
+}
+
+.isPinned .cardPhoto {
+  aspect-ratio: auto;
+}
+
+.isPinned .panel {
+  grid-template-columns: 1fr minmax(0, 18rem);
+  align-items: end;
+  gap: 1.5rem;
+  min-height: 0;
+  padding: 28px;
+}
+
+.isPinned .cardText {
+  text-align: right;
+}
+
+.isPinned .controls {
+  position: absolute;
+  inset: auto 0 2rem 0;
+  margin: 0 auto;
 }

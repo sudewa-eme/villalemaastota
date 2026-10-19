@@ -19,16 +19,34 @@
 }
 
 .solid {
-  background: rgba(243, 239, 230, 0.95);
-  color: var(--c-charcoal);
-  box-shadow: 0 1px 0 var(--c-line);
+  --hdr-bg: var(--c-ivory);
+  --hdr-ink: var(--c-charcoal);
+  background: var(--hdr-bg);
+  color: var(--hdr-ink);
+  transition:
+    background-color 300ms ease,
+    color 300ms ease;
 }
 
-@supports (backdrop-filter: blur(1px)) {
-  .solid {
-    background: rgba(243, 239, 230, 0.84);
-    backdrop-filter: blur(14px) saturate(1.1);
-  }
+.solid[data-on="white"] {
+  --hdr-bg: var(--c-white);
+}
+
+.solid[data-on="mist"] {
+  --hdr-bg: var(--c-mist);
+}
+
+.solid[data-on="sage"] {
+  --hdr-bg: var(--c-sage);
+}
+
+.solid[data-on="charcoal"] {
+  --hdr-bg: var(--c-charcoal);
+  --hdr-ink: var(--c-ivory);
+}
+
+.solid[data-on="charcoal"] :focus-visible {
+  outline-color: var(--c-ivory);
 }
 
 .clear :focus-visible {
@@ -202,15 +220,16 @@
 
 .solid .book,
 .isOpen .book {
-  background: var(--c-charcoal);
-  border-color: var(--c-charcoal);
-  color: var(--c-ivory);
+  background: var(--hdr-ink, var(--c-charcoal));
+  border-color: var(--hdr-ink, var(--c-charcoal));
+  color: var(--hdr-bg, var(--c-ivory));
 }
 
 .solid .book:hover,
 .isOpen .book:hover {
   background: var(--c-olive-deep);
   border-color: var(--c-olive-deep);
+  color: var(--c-ivory);
 }
 
 /* Full-screen menu */

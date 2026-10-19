@@ -188,6 +188,13 @@
   }
 
   .credit {
+    top: calc(var(--header-h) + 0.5rem) !important;
+    bottom: auto;
+    left: auto;
+    right: var(--gutter) !important;
+  }
+
+  .credit {
   position: absolute;
   left: var(--gutter);
   bottom: clamp(1.75rem, 5vh, 3.25rem);

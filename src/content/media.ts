@@ -19,6 +19,7 @@ export type MediaId =
   | "mistyLawn"
   | "livingRoom"
   | "mistForest"
+  | "curryTable"
   | "attractionDiyaluma"
   | "attractionLiptonsSeat"
   | "attractionAdisham"
@@ -95,6 +96,11 @@ export const media: Record<MediaId, MediaEntry> = {
     placeholder: "/images/placeholders/attraction-diyaluma.webp",
     alt: "Illustrative image of misty forested highland ridges",
     caption: "Mist over the forested ranges (illustrative)",
+  },
+  curryTable: {
+    placeholder: "/images/placeholders/firepit-lounge.webp",
+    alt: "Illustrative image of a warm, low-lit evening scene",
+    caption: "Rice and curry (illustrative)",
   },
   attractionDiyaluma: {
     placeholder: "/images/placeholders/attraction-diyaluma.webp",

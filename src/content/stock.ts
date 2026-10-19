@@ -98,6 +98,13 @@ export const stock: Partial<Record<MediaId, StockPhoto>> = {
     source: "Pexels",
     page: "https://www.pexels.com/photo/mist-over-lush-green-forested-mountain-range-31196710/",
   },
+  curryTable: {
+    src: pexels(9392998),
+    alt: "Rice and curry served on a banana leaf with green chillies",
+    caption: "Rice and curry",
+    source: "Pexels",
+    page: "https://www.pexels.com/photo/rice-and-cooked-meat-with-green-chilies-9392998/",
+  },
   attractionDiyaluma: {
     src: pexels(3133929),
     alt: "A tall waterfall cascading down a green hillside at Ginigathhena, Sri Lanka",

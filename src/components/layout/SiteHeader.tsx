@@ -8,17 +8,37 @@ import styles from "./SiteHeader.module.css";
 
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
+  const [field, setField] = useState("ivory");
   const [open, setOpen] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
 
   useBodyLock(open);
 
+  // Colour by chapter: the bar takes the field of the section passing beneath it.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    onScroll();
+    let raf = 0;
+    const read = () => {
+      raf = 0;
+      setScrolled(window.scrollY > 40);
+      const y = Math.round(window.innerHeight * 0.02 + 40);
+      const under = document
+        .elementsFromPoint(8, y)
+        .map((el) => el.closest<HTMLElement>("[data-field]"))
+        .find(Boolean);
+      setField(under?.dataset.field ?? "ivory");
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(read);
+    };
+    read();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   const close = useCallback((restoreFocus = true) => {
@@ -58,6 +78,7 @@ export function SiteHeader() {
       className={[styles.header, solid ? styles.solid : styles.clear, open && styles.isOpen]
         .filter(Boolean)
         .join(" ")}
+      data-on={solid ? field : undefined}
     >
       <div className={styles.bar}>
         <div className={styles.start}>

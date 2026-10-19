@@ -1,62 +1,56 @@
-"use client";
-
-import { useId, useState } from "react";
 import { faq } from "@/content/home";
 import { site } from "@/content/site";
-import { SectionLabel } from "@/components/ui/SectionLabel";
+import type { ResolvedMedia } from "@/lib/media.server";
+import { Photo } from "@/components/ui/Photo";
 import styles from "./Faq.module.css";
 
-export function Faq() {
-  const id = useId();
-  const [open, setOpen] = useState<number | null>(0);
+type Props = { tall: ResolvedMedia; square: ResolvedMedia };
 
+/** Native <details> accordion: works without script, one open at a time. */
+export function Faq({ tall, square }: Props) {
   return (
-    <section id="faq" className={styles.section} aria-labelledby={`${id}-title`}>
+    <section id="faq" className={styles.section} data-field="ivory" aria-labelledby="faq-title">
       <div className={`container ${styles.grid}`}>
-        <header className={styles.head}>
-          <SectionLabel>{faq.label}</SectionLabel>
-          <h2 id={`${id}-title`} className={`h2 ${styles.title}`} data-reveal>
-            Before you <em>arrive</em>
+        <div className={styles.text}>
+          <h2 id="faq-title" className={styles.title} data-reveal>
+            {faq.title}
           </h2>
-          <p className={styles.contact} data-reveal>
-            Can&apos;t find your answer? Call{" "}
-            <a href={site.contact.phoneHref}>{site.contact.phoneDisplay}</a> or email{" "}
-            <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>.
-          </p>
-        </header>
 
-        <ul className={styles.list}>
-          {faq.items.map((item, i) => {
-            const isOpen = open === i;
-            return (
-              <li key={item.q} className={`${styles.item} ${isOpen ? styles.isOpen : ""}`} data-reveal>
-                <h3 className={styles.q}>
-                  <button
-                    type="button"
-                    id={`${id}-q${i}`}
-                    aria-expanded={isOpen}
-                    aria-controls={`${id}-a${i}`}
-                    onClick={() => setOpen(isOpen ? null : i)}
-                  >
-                    <span>{item.q}</span>
-                    <span className={styles.icon} aria-hidden="true" />
-                  </button>
-                </h3>
-                <div
-                  id={`${id}-a${i}`}
-                  role="region"
-                  aria-labelledby={`${id}-q${i}`}
-                  className={styles.a}
-                  inert={!isOpen}
-                >
-                  <div className={styles.aInner}>
-                    <p>{item.a}</p>
-                  </div>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
+          <dl className={styles.facts}>
+            {faq.facts.map((f, i) => (
+              <div key={f.label} data-reveal style={{ "--reveal-delay": `${i * 70}ms` } as React.CSSProperties}>
+                <dt>{f.label}</dt>
+                <dd>{f.value}</dd>
+              </div>
+            ))}
+          </dl>
+
+          <div className={styles.list}>
+            {faq.items.map((item, i) => (
+              <details key={item.q} name="faq" className={styles.item} open={i === 0} data-reveal>
+                <summary>
+                  <span>{item.q}</span>
+                  <span className={styles.chevron} aria-hidden="true" />
+                </summary>
+                <p className={styles.answer}>{item.a}</p>
+              </details>
+            ))}
+          </div>
+
+          <div className={styles.actions} data-reveal>
+            <a className="action" href="#book">
+              Request availability
+            </a>
+            <a className="plain-link" href={`mailto:${site.contact.email}`}>
+              Email our team
+            </a>
+          </div>
+        </div>
+
+        <div className={styles.photos}>
+          <Photo image={tall} sizes="(min-width: 1024px) 50vw, 100vw" className={styles.tall} />
+          <Photo image={square} sizes="(min-width: 1024px) 18vw, 40vw" className={styles.square} />
+        </div>
       </div>
     </section>
   );

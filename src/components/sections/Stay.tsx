@@ -1,86 +1,72 @@
 import { stay } from "@/content/home";
 import type { ResolvedMedia } from "@/lib/media.server";
 import { Photo } from "@/components/ui/Photo";
-import { Rail } from "@/components/ui/Rail";
-import { SectionLabel } from "@/components/ui/SectionLabel";
-import { CircleLink } from "@/components/ui/CircleLink";
-import { Icon, type IconName } from "@/components/ui/Icon";
 import { Arrow } from "@/components/ui/Arrow";
-import { site } from "@/content/site";
 import styles from "./Stay.module.css";
 
-const AMENITY_ICONS: IconName[] = ["leaf", "waves", "sofa", "flame"];
-
-type StayProps = { slides: { image: ResolvedMedia; title: string; text: string }[] };
-
-export function Stay({ slides }: StayProps) {
+export function Stay({ photo }: { photo: ResolvedMedia }) {
+  let row = 0;
   return (
-    <section id="stay" className={styles.section} aria-labelledby="stay-title">
-      <div className={`container ${styles.head}`}>
-        <SectionLabel align="center">{stay.label}</SectionLabel>
-        <h2 id="stay-title" className={`h2 ${styles.title}`} data-reveal>
-          Rooms that open <em>onto the garden</em>
+    <section id="stay" className={styles.section} data-field="white" aria-labelledby="stay-title">
+      <div className={`container ${styles.grid}`}>
+        <h2 id="stay-title" className={styles.title} data-reveal>
+          {stay.title}
         </h2>
-        <ul className={styles.amenities} aria-label="At the villa">
-          {stay.amenities.map((a, i) => (
-            <li key={a} data-reveal style={{ "--reveal-delay": `${i * 80}ms` } as React.CSSProperties}>
-              <span className={styles.amenityIcon}>
-                <Icon name={AMENITY_ICONS[i % AMENITY_ICONS.length]} />
-              </span>
-              {a}
-            </li>
-          ))}
-        </ul>
-      </div>
 
-      <Rail label="Spaces at the villa" className={styles.rail} slideClassName={styles.slide}>
-        {slides.map((s, i) => (
-          <figure key={s.title + i} className={styles.figure}>
-            <Photo
-              image={s.image}
-              sizes="(min-width: 1024px) 40vw, (min-width: 640px) 60vw, 84vw"
-              hover
-              reveal={false}
-              className={styles.slideMedia}
-            />
-            <figcaption className={styles.slideCaption}>
-              <span className={styles.slideTitle}>{s.title}</span>
-              <span className={styles.slideText}>{s.text}</span>
-            </figcaption>
-          </figure>
-        ))}
-      </Rail>
-
-      <div className={`container ${styles.feature}`}>
-        <div className={styles.featureHead}>
-          <SectionLabel>Room categories</SectionLabel>
-          <h3 className={`h2 ${styles.featureTitle}`} data-reveal>
-            <em className="line">{stay.feature[0]}</em>
-            <span className={`line ${styles.indent}`}>{stay.feature[1]}</span>
-          </h3>
-        </div>
-        <div className={styles.featureBody}>
-          <p className="prose" data-reveal>
+        <div className={styles.aside}>
+          <p className={styles.body} data-reveal>
             {stay.body}
           </p>
-          <ul className={styles.rooms}>
-            {stay.rooms.map((r) => (
-              <li key={r.name} data-reveal>
-                <a href={r.href} target="_blank" rel="noopener noreferrer" className={styles.room}>
-                  <span className={styles.roomName}>{r.name}</span>
-                  <span className={styles.roomNote}>{r.note}</span>
-                  <Arrow direction="up-right" className={styles.roomArrow} />
-                  <span className="visually-hidden"> (room details, opens in a new tab)</span>
-                </a>
-              </li>
-            ))}
-          </ul>
-          <div data-reveal>
-            <CircleLink href="#book">Reserve your stay</CircleLink>
-          </div>
-          <p className={styles.smallNote} data-reveal>
-            Full room details and rates on <a href={site.links.accommodation} target="_blank" rel="noopener noreferrer">our accommodation pages</a>.
-          </p>
+          <figure className={styles.figure}>
+            <Photo image={photo} sizes="(min-width: 1024px) 26vw, 60vw" hover className={styles.photo} />
+            <figcaption className={styles.caption}>{photo.caption}</figcaption>
+          </figure>
+        </div>
+
+        <p className={styles.tableName} data-reveal>
+          Rooms and the house
+        </p>
+
+        <div className={styles.table} role="table" aria-label="Rooms, house details and distances">
+          {stay.groups.map((group, g) => (
+            <div key={g} role="rowgroup" className={styles.group}>
+              {group.map((r) => {
+                const delay = { "--reveal-delay": `${(row++ % 4) * 70}ms` } as React.CSSProperties;
+                const cells = (
+                  <>
+                    <span role="cell" className={styles.kind}>
+                      {r.kind}
+                    </span>
+                    <span role="cell" className={styles.name}>
+                      {r.name}
+                    </span>
+                    <span role="cell" className={styles.value}>
+                      {r.value}
+                      {r.href && <Arrow direction={r.href.startsWith("#") ? "right" : "up-right"} className={styles.arrow} />}
+                    </span>
+                  </>
+                );
+                return r.href ? (
+                  <a
+                    key={r.name}
+                    role="row"
+                    href={r.href}
+                    className={`${styles.row} ${styles.rowLink}`}
+                    data-reveal
+                    style={delay}
+                    {...(r.href.startsWith("#") ? {} : { target: "_blank", rel: "noopener noreferrer" })}
+                  >
+                    {cells}
+                    {!r.href.startsWith("#") && <span className="visually-hidden"> (opens in a new tab)</span>}
+                  </a>
+                ) : (
+                  <div key={r.name} role="row" className={styles.row} data-reveal style={delay}>
+                    {cells}
+                  </div>
+                );
+              })}
+            </div>
+          ))}
         </div>
       </div>
     </section>

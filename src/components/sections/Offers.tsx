@@ -1,38 +1,37 @@
 import { offers } from "@/content/home";
 import { site } from "@/content/site";
 import type { ResolvedMedia } from "@/lib/media.server";
-import { SectionLabel } from "@/components/ui/SectionLabel";
-import { CircleLink } from "@/components/ui/CircleLink";
 import { SmartImage } from "@/components/ui/SmartImage";
 import { CreditTag } from "@/components/ui/CreditTag";
 import styles from "./Offers.module.css";
 
 export function Offers({ image }: { image: ResolvedMedia }) {
-  const subject = encodeURIComponent("Special occasion enquiry");
+  const subject = encodeURIComponent("A private dinner for two");
+  const body = encodeURIComponent(
+    "Hello,\n\nWe'd like to plan a private dinner during our stay at Villa Lé Maas Tota.\n\nDates:\nOccasion:\nNumber of guests:\n",
+  );
   return (
-    <section id="offers" className={`${styles.section} on-dark`} aria-labelledby="offers-title">
-      <div className={styles.media} data-reveal="image">
-        <SmartImage image={image} fill sizes="100vw" quality={78} />
-        <div className={styles.scrim} aria-hidden="true" />
-        <CreditTag image={image} />
+    <section id="offers" className={styles.section} data-field="charcoal" aria-labelledby="offers-title">
+      <div className={styles.media}>
+        <SmartImage image={image} fill sizes="100vw" quality={80} className={styles.image} />
+        <CreditTag image={image} className={styles.credit} />
       </div>
 
       <div className={`container ${styles.inner}`}>
-        <SectionLabel>{offers.label}</SectionLabel>
-        <h2 id="offers-title" className={styles.title} data-reveal>
-          <em className="line">{offers.title[0]}</em>
-          <span className={`line ${styles.indent}`}>{offers.title[1]}</span>
-        </h2>
-
-        <div className={styles.foot}>
-          <p className={styles.body} data-reveal>
+        <div className={styles.text}>
+          <h2 id="offers-title" className={styles.title} data-reveal>
+            {offers.title}
+          </h2>
+          <p className={styles.body} data-reveal style={{ "--reveal-delay": "80ms" } as React.CSSProperties}>
             {offers.body}
           </p>
-          <div className={styles.actions} data-reveal>
-            <CircleLink href={`mailto:${site.contact.email}?subject=${subject}`}>Plan an occasion</CircleLink>
-            <CircleLink href={site.links.offers} external>
-              Current offers
-            </CircleLink>
+          <div className={styles.actions} data-reveal style={{ "--reveal-delay": "160ms" } as React.CSSProperties}>
+            <a className="action action--paper" href={`mailto:${site.contact.email}?subject=${subject}&body=${body}`}>
+              Plan a private dinner
+            </a>
+            <a className="plain-link" href={site.links.offers} target="_blank" rel="noopener noreferrer">
+              Current offers<span className="visually-hidden"> (opens in a new tab)</span>
+            </a>
           </div>
         </div>
       </div>

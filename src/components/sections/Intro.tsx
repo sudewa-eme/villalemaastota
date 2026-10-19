@@ -8,7 +8,7 @@ type IntroProps = { primary: ResolvedMedia; secondary: ResolvedMedia };
 
 export function Intro({ primary, secondary }: IntroProps) {
   return (
-    <section id="villa" className={styles.section} aria-labelledby="intro-title">
+    <section id="villa" className={styles.section} data-field="ivory" aria-labelledby="intro-title">
       <div className={`container ${styles.grid}`}>
         <SectionLabel className={styles.label}>{intro.label}</SectionLabel>
 

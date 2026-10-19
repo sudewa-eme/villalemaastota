@@ -14,7 +14,7 @@ export function CreditTag({ image, className, tone = "light" }: CreditTagProps) 
       className={["credit-tag", tone === "dark" && "credit-tag--dark", className].filter(Boolean).join(" ")}
       title={`Illustrative stock photo${photographer ? ` by ${photographer}` : ""} on ${source}`}
     >
-      Illustrative · {source}
+      Illustrative, {source}
       <span className="visually-hidden">
         {photographer ? `, photo by ${photographer}` : ""} (opens in a new tab)
       </span>

@@ -35,169 +35,130 @@ export const booking = {
   body: "Choose your dates and party size. Our reservations team confirms every request personally — up to five rooms, or the entire villa.",
 };
 
+export type TableRow = { kind: string; name: string; value: string; href?: string };
+
 export const stay = {
-  label: "Stay",
-  title: "Rooms that open onto the garden",
-  feature: ["A room", "to return to."],
-  amenities: ["Garden views", "Infinity pool", "Living room", "Outdoor fire pit"],
-  body: "Five rooms in the bungalow, each with its own outlook to the garden and the hills. Book a single room for two, a set of rooms for family, or take the whole house for yourselves.",
-  /** Room categories published by the property. Details only where confirmed. */
-  rooms: [
-    {
-      name: "Standard Deluxe",
-      note: "For couples · king bed · air conditioning · minibar · in-room safe",
-      href: "https://www.lemaastota.com/accommodation/standard-deluxe/",
-    },
-    {
-      name: "Junior Suite",
-      note: "Up to two guests",
-      href: "https://www.lemaastota.com/accommodation/junior-suite/",
-    },
-    {
-      name: "Family Suite",
-      note: "Mountain and pool views",
-      href: site.links.accommodation,
-    },
-    {
-      name: "Studio Apartment",
-      note: "Ask our team for details",
-      href: site.links.accommodation,
-    },
-  ],
-  slides: [
-    { image: "livingRoom" as MediaId, title: "The living room", text: "Panelled white walls, soft linen and books on Sri Lankan art — the bungalow's shared heart." },
-    { image: "villaAerial" as MediaId, title: "The bungalow", text: "Verandas and stone terraces step down from the house towards the pool." },
-    { image: "mistyLawn" as MediaId, title: "The garden", text: "A broad lawn beneath the mountain, where the morning mist comes and goes." },
-    { image: "poolDeckReading" as MediaId, title: "The pool deck", text: "Timber loungers and shade among the flowering trees, a few steps from your room." },
-  ],
+  title: "Five rooms, one old bungalow",
+  body: "Book a single room for two, a set of rooms for the family, or the whole house for yourselves. Every room opens to the garden and the hills.",
+  photo: "livingRoom" as MediaId,
+  /** Rows in groups: room categories, then the house, then the road. Facts only where published. */
+  groups: [
+    [
+      { kind: "Room", name: "Standard Deluxe", value: "King bed, for two", href: "https://www.lemaastota.com/accommodation/standard-deluxe/" },
+      { kind: "Room", name: "Junior Suite", value: "Up to two guests", href: "https://www.lemaastota.com/accommodation/junior-suite/" },
+      { kind: "Room", name: "Family Suite", value: "Mountain and pool views", href: site.links.accommodation },
+      { kind: "Room", name: "Studio Apartment", value: "Details on request", href: site.links.accommodation },
+    ],
+    [
+      { kind: "The house", name: "Rooms per booking", value: `Up to ${site.policies.maxRoomsPerBooking}` },
+      { kind: "The house", name: "Whole villa", value: "Ask our team", href: "#book" },
+      { kind: "Arrive", name: "Check-in", value: `From ${site.policies.checkIn}` },
+      { kind: "Leave", name: "Check-out", value: `By ${site.policies.checkOut}` },
+    ],
+    [
+      { kind: "By road", name: "From Colombo (Kottawa exit)", value: "168 km" },
+      { kind: "By road", name: "From Ella town", value: "43.7 km" },
+    ],
+  ] satisfies TableRow[][],
 };
 
 export const offers = {
-  label: "Offers & Occasions",
-  title: ["Evenings", "Worth Keeping"],
-  body: "Anniversaries, proposals or simply a night to yourselves — the valley deck beside the infinity pool can be set for a private dinner under the stars. Seasonal offers for direct bookings are published on our offers page; our team will tailor the details to your stay.",
+  title: "Evenings worth keeping",
+  body: "Anniversaries, proposals or a night to yourselves: a table can be set for two by the pool, under the stars. Seasonal offers for direct bookings are on our offers page.",
   image: "dinnerDeckDusk" as MediaId,
 };
 
+export type DiningCard = { image: MediaId; name: string; text: string; tone: string };
+
 export const dining = {
-  label: "Dining",
-  title: ["Island Flavours", "with a View"],
-  body: "Meals are cooked to order from an à la carte menu and served wherever the day takes you — in the dining room, out in the garden, or in the privacy of your room.",
-  panels: [
-    {
-      title: "Curries & beyond",
-      text: "Sri Lankan curries alongside international dishes, from breakfast through to dinner.",
-    },
-    {
-      title: "Fire pit evenings",
-      text: "As the air cools, gather around the sunken stone fire pit, cushioned and lantern-lit.",
-    },
-    {
-      title: "Dine anywhere",
-      text: "The dining room, a garden table or your own room — tell us where, and when.",
-    },
-  ],
-  hours: "Dining from 6:30 am to 10:30 pm",
-  image: "firepitLounge" as MediaId,
+  title: "Rice, curry and a fire after dark",
+  body: "Cooked to order from an à la carte menu, from 6:30 in the morning to 10:30 at night.",
+  stage: "estateOverhead" as MediaId,
+  cards: [
+    { image: "curryTable", name: "Rice and curry", text: "Sri Lankan curries alongside international dishes, morning to night.", tone: "var(--c-sage)" },
+    { image: "mistyLawn", name: "Garden tables", text: "Meals at a table in the garden, the hills beyond.", tone: "var(--c-mist)" },
+    { image: "firepitLounge", name: "The fire pit", text: "When the air cools, the sunken stone fire pit is lit.", tone: "#d7d2c4" },
+    { image: "livingRoom", name: "In your room", text: "Any meal can be brought to your room instead.", tone: "var(--c-ivory)" },
+  ] satisfies DiningCard[],
 };
 
-export type Experience = {
+export type Stop = {
+  id: string;
   image: MediaId;
-  kicker: string;
+  km: number;
   title: string;
   text: string;
-  distance?: string;
+  where: string;
 };
 
 export const experiences = {
-  label: "Experiences",
-  title: ["The Highland", "Experience"],
-  background: "mistForest" as MediaId,
-  body: "Walk the estate's own trails, then venture into the Uva highlands — some of Sri Lanka's most spectacular waterfalls and viewpoints are within an easy drive. Excursions beyond the estate are independent attractions; our team can help you plan them.",
-  items: [
-    {
-      image: "estateOverhead",
-      kicker: "On the estate",
-      title: "Forest trails",
-      text: "Nature walks through the villa's own grounds, past streams, terraces and old forest trees.",
-    },
-    {
-      image: "attractionDiyaluma",
-      kicker: "Nearby",
-      title: "Diyaluma Falls",
-      text: "Sri Lanka's second-tallest waterfall, dropping some 220 metres. Trek upriver to the rock pools of Uda Diyaluma.",
-      distance: "approx. 10 km",
-    },
-    {
-      image: "attractionBambarakanda",
-      kicker: "Nearby",
-      title: "Bambarakanda Falls",
-      text: "The island's tallest waterfall at 263 metres, reached via the village of Kalupahana.",
-      distance: "approx. 29 km",
-    },
-    {
-      image: "attractionLiptonsSeat",
-      kicker: "Tea country",
-      title: "Lipton's Seat",
-      text: "A viewpoint at 1,970 metres above the Dambatenne tea estate, where Thomas Lipton once surveyed his plantations.",
-      distance: "approx. 25 km",
-    },
-    {
-      image: "attractionAdisham",
-      kicker: "Haputale",
-      title: "Adisham Bungalow",
-      text: "A stone country house with manicured gardens and fruit trees; its shop sells jams, jellies and syrups.",
-      distance: "approx. 31 km",
-    },
-  ] satisfies Experience[],
+  title: "Waterfall country, by the kilometre",
+  body: "Walk the estate's own trails, then take the road into the Uva hills. These are independent attractions; our team will help you plan the day.",
+  /** Road distances from the villa as published by the property. */
+  stops: [
+    { id: "trails", image: "estateOverhead", km: 0, title: "Forest trails", where: "On the estate", text: "Nature walks through the villa's own thirty acres, past streams, terraces and old forest trees." },
+    { id: "diyaluma", image: "attractionDiyaluma", km: 10, title: "Diyaluma Falls", where: "Koslanda", text: "Sri Lanka's second-tallest waterfall, falling some 220 metres. Trek upriver to the rock pools of Uda Diyaluma." },
+    { id: "liptons-seat", image: "attractionLiptonsSeat", km: 25, title: "Lipton's Seat", where: "Dambatenne", text: "A lookout at 1,970 metres over the Dambatenne tea estate, where Thomas Lipton surveyed his plantations." },
+    { id: "bambarakanda", image: "attractionBambarakanda", km: 29, title: "Bambarakanda Falls", where: "Kalupahana", text: "The island's tallest waterfall at 263 metres, reached through the village of Kalupahana." },
+    { id: "adisham", image: "attractionAdisham", km: 31, title: "Adisham Bungalow", where: "Haputale", text: "A stone country house with kept gardens and fruit trees; its shop sells jams, jellies and syrups." },
+  ] satisfies Stop[],
+  /** End of the drawn road. */
+  roadEnd: { km: 43.7, label: "Ella town" },
 };
 
 export const faq = {
-  label: "Questions",
   title: "Before you arrive",
+  facts: [
+    { label: "Address", value: "Lé Maas Tota Estate, Ranasinghagama, Nikapotha, Koslanda" },
+    { label: "Check-in and out", value: `From ${site.policies.checkIn}, by ${site.policies.checkOut}` },
+    { label: "From Colombo", value: "168 km, about four and a half hours" },
+  ],
+  photoTall: "mistyLawn" as MediaId,
+  photoSquare: "poolDeckReading" as MediaId,
   items: [
     {
-      q: "What are the check-in and check-out times?",
-      a: `Check-in is from ${site.policies.checkIn} and check-out is by ${site.policies.checkOut}. Early check-in and late check-out can be arranged on request, subject to availability — please contact our reservations team.`,
+      q: "Can we arrive early or leave late?",
+      a: "Early check-in and late check-out can be arranged on request, subject to availability. Please ask our reservations team.",
     },
     {
       q: "Can we book the whole villa?",
-      a: `Yes. Rooms can be booked individually, or you can reserve the entire villa. Up to ${site.policies.maxRoomsPerBooking} rooms can be booked in a single reservation, subject to availability.`,
+      a: `Yes. Rooms can be booked one by one, or you can reserve the entire villa. Up to ${site.policies.maxRoomsPerBooking} rooms can be booked in one reservation, subject to availability.`,
     },
     {
       q: "How do we get there?",
-      a: "The villa is about 168 km from Colombo's Kottawa expressway exit — roughly four and a half hours by road — and 43.7 km from Ella town. Our team can share directions or help arrange transport.",
+      a: "The villa is about 168 km from Colombo's Kottawa expressway exit, roughly four and a half hours by road, and 43.7 km from Ella town. Our team can share directions or help arrange transport.",
     },
     {
       q: "How is payment taken?",
-      a: "Payment can be made by card or in cash on arrival. Card details provided when booking are only charged in the event of a no-show.",
+      a: "By card or in cash on arrival. Card details given when booking are only charged in the event of a no-show.",
     },
     {
-      q: "Is there parking at the villa?",
-      a: "Yes, there is a car park on the estate for guests.",
-    },
-    {
-      q: "Is the villa accessible for guests with disabilities?",
-      a: "There are rooms suitable for guests with disabilities. Please tell us about your requirements when booking so we can prepare.",
+      q: "Is there parking, and is the villa accessible?",
+      a: "There is a car park on the estate, and there are rooms suitable for guests with disabilities. Tell us your requirements when booking so we can prepare.",
     },
     {
       q: "Are pets allowed?",
-      a: "We're sorry — pets are not permitted at the villa.",
+      a: "We're sorry, pets are not permitted at the villa.",
     },
   ],
 };
 
 export const gallery = {
-  label: "Gallery",
-  title: ["Light, water", "& the green"],
+  title: "Light, water and the green",
+  body: "Mornings in mist, afternoons by the water, the forest all around. Open the gallery to see every photograph.",
+  /** The three frames of the curtain sequence. */
+  curtain: ["villaAerial", "poolDeckReading", "mistForest"] as MediaId[],
+  /** Everything in the lightbox. */
   items: [
     "villaAerial",
     "infinityPoolSunset",
-    "livingRoom",
     "poolDeckReading",
     "mistyLawn",
+    "livingRoom",
     "dinnerDeckDusk",
     "firepitLounge",
+    "curryTable",
     "estateOverhead",
+    "mistForest",
   ] as MediaId[],
 };

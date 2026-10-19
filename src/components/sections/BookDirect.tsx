@@ -134,7 +134,7 @@ export function BookDirect() {
   const minCheckout = checkin ? addDays(checkin, 1) : today ? addDays(today, 1) : undefined;
 
   return (
-    <section id="book" className={styles.section} aria-labelledby={`${id}-title`}>
+    <section id="book" className={styles.section} data-field="mist" aria-labelledby={`${id}-title`}>
       <div className={`container ${styles.layout}`}>
         <header className={styles.head}>
           <SectionLabel>{booking.label}</SectionLabel>

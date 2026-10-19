@@ -6,7 +6,7 @@ import styles from "./Hero.module.css";
 
 export function Hero({ image }: { image: ResolvedMedia }) {
   return (
-    <section id="top" className={`${styles.hero} on-dark`} aria-labelledby="hero-title">
+    <section id="top" className={`${styles.hero} on-dark`} data-field="charcoal" aria-labelledby="hero-title">
       <div className={styles.media}>
         <SmartImage image={image} fill priority sizes="100vw" quality={80} className={styles.image} />
         <div className={styles.scrim} aria-hidden="true" />

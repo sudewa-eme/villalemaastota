@@ -11,7 +11,7 @@ import { Experiences } from "@/components/sections/Experiences";
 import { Faq } from "@/components/sections/Faq";
 import { Gallery } from "@/components/sections/Gallery";
 import { RevealObserver } from "@/components/ui/RevealObserver";
-import { dining, experiences, gallery, hero, intro, offers, stay } from "@/content/home";
+import { dining, experiences, faq, gallery, hero, intro, offers, stay } from "@/content/home";
 import { site } from "@/content/site";
 import { resolveMedia } from "@/lib/media.server";
 
@@ -61,20 +61,20 @@ export default function HomePage() {
         {/* 03 */}
         <BookDirect />
         {/* 04 */}
-        <Stay slides={stay.slides.map((s) => ({ ...s, image: resolveMedia(s.image) }))} />
+        <Stay photo={resolveMedia(stay.photo)} />
         {/* 05 */}
         <Offers image={resolveMedia(offers.image)} />
         {/* 06 */}
-        <Dining image={resolveMedia(dining.image)} />
-        {/* 07 */}
-        <Experiences
-          background={resolveMedia(experiences.background)}
-          slides={experiences.items.map((e) => ({ ...e, image: resolveMedia(e.image) }))}
+        <Dining
+          stage={resolveMedia(dining.stage)}
+          cards={dining.cards.map((c) => ({ ...c, image: resolveMedia(c.image) }))}
         />
+        {/* 07 */}
+        <Experiences stops={experiences.stops.map((s) => ({ ...s, image: resolveMedia(s.image) }))} />
         {/* 08 */}
-        <Faq />
+        <Faq tall={resolveMedia(faq.photoTall)} square={resolveMedia(faq.photoSquare)} />
         {/* 09 */}
-        <Gallery images={gallery.items.map(resolveMedia)} />
+        <Gallery images={gallery.items.map(resolveMedia)} curtain={gallery.curtain.map(resolveMedia)} />
       </main>
       {/* 10 */}
       <SiteFooter />
