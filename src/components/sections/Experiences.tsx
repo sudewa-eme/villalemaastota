@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useRef, useState } from "react";
 import { experiences } from "@/content/home";
 import { site } from "@/content/site";
@@ -8,6 +7,8 @@ import type { ResolvedMedia } from "@/lib/media.server";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { CircleLink } from "@/components/ui/CircleLink";
 import { Arrow } from "@/components/ui/Arrow";
+import { SmartImage } from "@/components/ui/SmartImage";
+import { CreditTag } from "@/components/ui/CreditTag";
 import styles from "./Experiences.module.css";
 
 export type ExperienceSlide = {
@@ -40,15 +41,9 @@ export function Experiences({ background, slides }: Props) {
   return (
     <section id="experiences" className={`${styles.section} on-dark`} aria-labelledby="exp-title">
       <div className={styles.bg}>
-        <Image
-          src={background.src}
-          alt=""
-          fill
-          sizes="100vw"
-          quality={75}
-          style={{ objectPosition: background.focus, objectFit: "cover" }}
-        />
+        <SmartImage image={background} alt="" fill sizes="100vw" quality={75} />
         <div className={styles.scrim} aria-hidden="true" />
+        <CreditTag image={background} />
       </div>
 
       <div className={`container ${styles.inner}`}>
@@ -87,16 +82,12 @@ export function Experiences({ background, slides }: Props) {
                 inert={i !== index}
               >
                 <div className={styles.cardMedia}>
-                  <Image
-                    src={s.image.src}
-                    alt={s.image.alt}
-                    fill
-                    sizes="(min-width: 768px) 400px, 80vw"
-                    quality={75}
-                    loading="lazy"
-                    style={{ objectPosition: s.image.focus, objectFit: "cover" }}
-                  />
-                  {s.image.illustrative && <span className={styles.badge}>Illustrative</span>}
+                  <SmartImage image={s.image} fill sizes="(min-width: 768px) 400px, 80vw" quality={75} loading="lazy" />
+                  {s.image.credit ? (
+                    <CreditTag image={s.image} className={styles.badge} tone="dark" />
+                  ) : (
+                    s.image.illustrative && <span className={styles.badge}>Illustrative</span>
+                  )}
                 </div>
                 <div className={styles.cardBody}>
                   <p className={styles.kicker}>

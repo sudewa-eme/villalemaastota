@@ -143,6 +143,12 @@
   font-size: 1.2rem;
 }
 
+.lbNote a {
+  color: var(--c-ivory);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .lbNote {
   font-family: var(--font-sans);
   font-style: normal;

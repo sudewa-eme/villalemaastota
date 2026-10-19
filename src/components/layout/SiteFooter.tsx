@@ -1,10 +1,12 @@
 import Link from "next/link";
 import { Logo } from "@/components/brand/Logo";
 import { navigation, site } from "@/content/site";
+import { stockCredits } from "@/lib/media.server";
 import styles from "./SiteFooter.module.css";
 
 export function SiteFooter() {
   const year = new Date().getFullYear();
+  const credits = stockCredits();
   return (
     <footer id="contact" className={`${styles.footer} on-dark`} aria-labelledby="footer-title">
       <div className={`container ${styles.top}`}>
@@ -77,6 +79,21 @@ export function SiteFooter() {
             </li>
           ))}
         </ul>
+      )}
+
+      {credits.length > 0 && (
+        <p className={`container ${styles.credits}`}>
+          Illustrative stock photography shown until the villa&apos;s own photographs are published:{" "}
+          {credits.map((c, i) => (
+            <span key={c.page}>
+              <a href={c.page} target="_blank" rel="noopener noreferrer">
+                {c.photographer ?? c.caption}
+              </a>{" "}
+              / {c.source}
+              {i < credits.length - 1 ? ", " : "."}
+            </span>
+          ))}
+        </p>
       )}
 
       <div className={`container ${styles.bottom}`}>

@@ -1,22 +1,14 @@
-import Image from "next/image";
 import { hero } from "@/content/home";
 import type { ResolvedMedia } from "@/lib/media.server";
+import { SmartImage } from "@/components/ui/SmartImage";
+import { CreditTag } from "@/components/ui/CreditTag";
 import styles from "./Hero.module.css";
 
 export function Hero({ image }: { image: ResolvedMedia }) {
   return (
     <section id="top" className={`${styles.hero} on-dark`} aria-labelledby="hero-title">
       <div className={styles.media}>
-        <Image
-          src={image.src}
-          alt={image.alt}
-          fill
-          priority
-          sizes="100vw"
-          quality={80}
-          className={styles.image}
-          style={{ objectPosition: image.focus }}
-        />
+        <SmartImage image={image} fill priority sizes="100vw" quality={80} className={styles.image} />
         <div className={styles.scrim} aria-hidden="true" />
       </div>
 
@@ -38,6 +30,8 @@ export function Hero({ image }: { image: ResolvedMedia }) {
             </a>
           </div>
         </div>
+
+        <CreditTag image={image} className={styles.credit} />
 
         <a href="#villa" className={styles.scroll}>
           <span className="visually-hidden">Scroll to the introduction</span>

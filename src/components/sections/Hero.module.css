@@ -104,6 +104,14 @@
   gap: 0.75rem;
 }
 
+.credit {
+  position: absolute;
+  left: var(--gutter);
+  bottom: clamp(1.75rem, 5vh, 3.25rem);
+  right: auto !important;
+  top: auto !important;
+}
+
 .scroll {
   position: absolute;
   right: var(--gutter);
@@ -179,7 +187,15 @@
     display: none;
   }
 
-  .scroll {
+  .credit {
+  position: absolute;
+  left: var(--gutter);
+  bottom: clamp(1.75rem, 5vh, 3.25rem);
+  right: auto !important;
+  top: auto !important;
+}
+
+.scroll {
     display: none;
   }
 }

@@ -1,9 +1,10 @@
-import Image from "next/image";
 import { offers } from "@/content/home";
 import { site } from "@/content/site";
 import type { ResolvedMedia } from "@/lib/media.server";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { CircleLink } from "@/components/ui/CircleLink";
+import { SmartImage } from "@/components/ui/SmartImage";
+import { CreditTag } from "@/components/ui/CreditTag";
 import styles from "./Offers.module.css";
 
 export function Offers({ image }: { image: ResolvedMedia }) {
@@ -11,15 +12,9 @@ export function Offers({ image }: { image: ResolvedMedia }) {
   return (
     <section id="offers" className={`${styles.section} on-dark`} aria-labelledby="offers-title">
       <div className={styles.media} data-reveal="image">
-        <Image
-          src={image.src}
-          alt={image.alt}
-          fill
-          sizes="100vw"
-          quality={78}
-          style={{ objectPosition: image.focus, objectFit: "cover" }}
-        />
+        <SmartImage image={image} fill sizes="100vw" quality={78} />
         <div className={styles.scrim} aria-hidden="true" />
+        <CreditTag image={image} />
       </div>
 
       <div className={`container ${styles.inner}`}>

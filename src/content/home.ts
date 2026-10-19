@@ -112,7 +112,7 @@ export type Experience = {
 export const experiences = {
   label: "Experiences",
   title: ["The Highland", "Experience"],
-  background: "mistyLawn" as MediaId,
+  background: "mistForest" as MediaId,
   body: "Walk the estate's own trails, then venture into the Uva highlands — some of Sri Lanka's most spectacular waterfalls and viewpoints are within an easy drive. Excursions beyond the estate are independent attractions; our team can help you plan them.",
   items: [
     {

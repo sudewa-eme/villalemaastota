@@ -88,6 +88,7 @@
 .badge {
   position: absolute;
   left: 10px;
+  right: auto;
   bottom: 10px;
   padding: 0.25rem 0.55rem;
   background: rgba(243, 239, 230, 0.9);

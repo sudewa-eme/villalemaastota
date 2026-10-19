@@ -1,12 +1,12 @@
 "use client";
 
-import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { gallery } from "@/content/home";
 import type { ResolvedMedia } from "@/lib/media.server";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Arrow } from "@/components/ui/Arrow";
 import { useBodyLock } from "@/components/ui/useBodyLock";
+import { SmartImage } from "@/components/ui/SmartImage";
 import styles from "./Gallery.module.css";
 
 export function Gallery({ images }: { images: ResolvedMedia[] }) {
@@ -36,7 +36,7 @@ export function Gallery({ images }: { images: ResolvedMedia[] }) {
       else if (e.key === "ArrowRight") step(1);
       else if (e.key === "ArrowLeft") step(-1);
       else if (e.key === "Tab") {
-        const nodes = Array.from(dialogRef.current?.querySelectorAll<HTMLElement>("button") ?? []);
+        const nodes = Array.from(dialogRef.current?.querySelectorAll<HTMLElement>("button, a[href]") ?? []);
         const first = nodes[0];
         const last = nodes[nodes.length - 1];
         if (e.shiftKey && document.activeElement === first) {
@@ -81,14 +81,7 @@ export function Gallery({ images }: { images: ResolvedMedia[] }) {
               aria-label={`Open image: ${img.caption}`}
               aria-haspopup="dialog"
             >
-              <Image
-                src={img.src}
-                alt={img.alt}
-                fill
-                sizes="(min-width: 1024px) 50vw, 100vw"
-                quality={72}
-                style={{ objectPosition: img.focus }}
-              />
+              <SmartImage image={img} fill sizes="(min-width: 1024px) 50vw, 100vw" quality={72} />
               <span className={styles.tileCaption} aria-hidden="true">
                 {img.caption}
               </span>
@@ -124,11 +117,23 @@ export function Gallery({ images }: { images: ResolvedMedia[] }) {
           <div className={styles.lbStage} onClick={(e) => e.target === e.currentTarget && close()}>
             <figure key={current.id} className={styles.lbFigure}>
               <div className={styles.lbImage}>
-                <Image src={current.src} alt={current.alt} fill sizes="100vw" quality={85} style={{ objectFit: "contain" }} />
+                <SmartImage image={current} fill sizes="100vw" quality={85} style={{ objectFit: "contain" }} />
               </div>
               <figcaption className={styles.lbCaption}>
                 {current.caption}
-                {current.illustrative && <span className={styles.lbNote}> — illustrative placeholder, photograph to follow</span>}
+                {current.credit ? (
+                  <span className={styles.lbNote}>
+                    {" "}
+                    — illustrative stock photo
+                    {current.credit.photographer ? ` by ${current.credit.photographer}` : ""} on{" "}
+                    <a href={current.credit.page} target="_blank" rel="noopener noreferrer">
+                      {current.credit.source}
+                    </a>
+                    , villa photography to follow
+                  </span>
+                ) : (
+                  current.illustrative && <span className={styles.lbNote}> — illustrative placeholder, photograph to follow</span>
+                )}
               </figcaption>
             </figure>
           </div>

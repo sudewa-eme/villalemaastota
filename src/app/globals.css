@@ -499,6 +499,43 @@ button {
   transform: scale(1.035);
 }
 
+/* "Illustrative · Pexels" tag on stock stand-in images */
+.credit-tag {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  z-index: 2;
+  padding: 0.3rem 0.6rem;
+  border-radius: 2px;
+  background: rgba(24, 26, 22, 0.55);
+  color: rgba(243, 239, 230, 0.92);
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1.4;
+  transition: background-color var(--dur-2) var(--ease);
+}
+
+.credit-tag:hover {
+  background: rgba(24, 26, 22, 0.8);
+}
+
+@supports (backdrop-filter: blur(1px)) {
+  .credit-tag {
+    backdrop-filter: blur(6px);
+  }
+}
+
+.credit-tag--dark {
+  background: rgba(243, 239, 230, 0.9);
+  color: var(--c-stone);
+}
+
+.credit-tag--dark:hover {
+  background: var(--c-ivory);
+}
+
 /* --------------------------------------------------------------------------
    Reveal-on-scroll (enabled by <RevealObserver/> after hydration only, so
    content is always visible without JavaScript).

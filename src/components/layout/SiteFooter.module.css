@@ -123,6 +123,24 @@
   text-transform: uppercase;
 }
 
+.credits {
+  padding-bottom: 1.75rem;
+  font-size: 0.72rem;
+  line-height: 1.7;
+  color: rgba(243, 239, 230, 0.55);
+}
+
+.credits a {
+  color: rgba(243, 239, 230, 0.75);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(243, 239, 230, 0.3);
+}
+
+.credits a:hover {
+  color: var(--c-ivory);
+}
+
 .bottom {
   display: flex;
   flex-wrap: wrap;

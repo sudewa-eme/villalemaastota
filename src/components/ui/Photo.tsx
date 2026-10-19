@@ -1,5 +1,6 @@
-import Image from "next/image";
 import type { ResolvedMedia } from "@/lib/media.server";
+import { SmartImage } from "./SmartImage";
+import { CreditTag } from "./CreditTag";
 
 type PhotoProps = {
   image: ResolvedMedia;
@@ -10,24 +11,19 @@ type PhotoProps = {
   hover?: boolean;
   reveal?: boolean;
   alt?: string;
+  /** Show the "Illustrative · source" tag for stock stand-ins. */
+  credit?: boolean;
 };
 
 /** Art-directed cover image filling its (aspect-ratio controlled) frame. */
-export function Photo({ image, sizes, className, priority, hover, reveal = true, alt }: PhotoProps) {
+export function Photo({ image, sizes, className, priority, hover, reveal = true, alt, credit = true }: PhotoProps) {
   return (
     <div
       className={["media", hover && "media--hover", className].filter(Boolean).join(" ")}
       data-reveal={reveal ? "image" : undefined}
     >
-      <Image
-        src={image.src}
-        alt={alt ?? image.alt}
-        fill
-        sizes={sizes}
-        priority={priority}
-        quality={78}
-        style={{ objectPosition: image.focus }}
-      />
+      <SmartImage image={image} alt={alt} fill sizes={sizes} priority={priority} quality={78} />
+      {credit && <CreditTag image={image} />}
     </div>
   );
 }
